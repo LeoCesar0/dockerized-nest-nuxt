@@ -1,9 +1,36 @@
 version: '3.8'
 
+x-common-env: &common-env
+  ENVIRONMENT: "${ENVIRONMENT:-production}"
+  DB_HOST: "${DB_HOST:-db}"
+  DB_USER: "${DB_USER:-postgres}"
+  DB_PASS: "${DB_PASS:-postgres}"
+  DB_NAME: "${DB_NAME:-postgres}"
+  BACKEND_HOST: "${BACKEND_HOST:-}"
+  BACKEND_PORT: "${BACKEND_PORT:-8000}"
+  BACKEND_WORKERS_COUNT: "${BACKEND_WORKERS_COUNT:-4}"
+  BACKEND_FIRST_USER_NAME: "${BACKEND_FIRST_USER_NAME:-Admin}"
+  BACKEND_FIRST_USER_EMAIL: "${BACKEND_FIRST_USER_EMAIL:-}"
+  BACKEND_FIRST_USER_PASSWORD: "${BACKEND_FIRST_USER_PASSWORD:-}"
+  JWT_SECRET_KEY: "${JWT_SECRET_KEY}"
+  JWT_ALGORITHM: "${JWT_ALGORITHM}"
+  JWT_ACCESS_TOKEN_EXPIRE_MINUTES: "${JWT_ACCESS_TOKEN_EXPIRE_MINUTES}"
+  FRONTEND_API_URL: "${FRONTEND_API_URL}"
+
 services:
+  # backend:
+  # build:
+  #   context: ./backend
+  #   dockerfile: Dockerfile.backend
+  #   ports:
+  #     - "8000:8000"
   backend:
+    restart: always
     build:
       context: ./backend
       dockerfile: Dockerfile.backend
     ports:
-      - "8000:8000"
+      - "${DOCKER_BACKEND_PORT}:8000"
+    environment:
+      <<: *common-env
+      DB_HOST: db
