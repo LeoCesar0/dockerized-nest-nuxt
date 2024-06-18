@@ -5,11 +5,17 @@ set dotenv-load := true
 # --------------------------------------------------------------------------- #
 
 # Roda o serviço em desenvolvimento
+@dev:
+  echo "\n🚀 starting service..."
+  echo "----------------------"
+  docker compose build --no-cache
+  docker compose -f docker-compose.yml up -d --force-recreate --remove-orphans
+
 @start:
   echo "\n🚀 starting service..."
   echo "----------------------"
   docker compose build --no-cache
-  docker compose up -d --force-recreate --remove-orphans
+  docker compose -f docker-compose.prod.yml up -d --force-recreate --remove-orphans
 
 # Para o serviço
 @teardown:

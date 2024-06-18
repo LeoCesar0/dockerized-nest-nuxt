@@ -22,7 +22,7 @@ services:
     restart: always
     build:
       context: ./backend
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
       - "${DOCKER_BACKEND_PORT}:8000"
     environment:
@@ -32,7 +32,7 @@ services:
     restart: always
     build:
       context: ./frontend
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     ports:
       - "${DOCKER_FRONTEND_PORT}:3000"
     environment:
