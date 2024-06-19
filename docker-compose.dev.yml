@@ -1,8 +1,8 @@
 version: '3.8'
 
 x-common-env: &common-env
-  ENVIRONMENT: "production"
-  NODE_ENV: "production"
+  ENVIRONMENT: "development"
+  NODE_ENV: "development"
   DB_HOST: "${DB_HOST:-db}"
   DB_USER: "${DB_USER:-postgres}"
   DB_PASS: "${DB_PASS:-postgres}"
@@ -23,19 +23,19 @@ services:
     restart: always
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - "${DOCKER_BACKEND_PORT}:8000"
     environment:
       <<: *common-env
-      DB_HOST: db
   frontend:
     restart: always
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend:/app
     ports:
       - "${DOCKER_FRONTEND_PORT}:3000"
     environment:
       <<: *common-env
-      DB_HOST: db
