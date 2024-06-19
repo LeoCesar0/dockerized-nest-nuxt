@@ -1,5 +1,5 @@
 <template>
   <div>
-    <h1>My lvl nuxt test</h1>
+    <h1>My frontend nuxt test</h1>
   </div>
 </template>
